@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout-Login.cshtml";
+}
+
+<div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+    <div class="wrapper wrapper--w680">
+        <div class="card card-1">
+            <div class="card-heading"></div>
+            <div class="card-body">
+                <h2 class="title">Registration Info</h2>
+                <form action="/Home/Register" method="POST">
+
+                    <div class="input-group">
+                        <input class="input--style-1" type="text" required placeholder="FULLNAME" name="Fullname">
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <input class="input--style-1 js-datepicker" type="date" required placeholder="BIRTHDATE" name="birthday">
+                                @*<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>*@
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <div class="rs-select2 js-select-simple select--no-search">
+                                    <select name="gender" required>
+                                        <option disabled="disabled" selected="selected">GENDER</option>
+                                        <option name="Male">Male</option>
+                                        <option name="Female">Female</option>
+                                        <option name="Other">Other</option>
+                                    </select>
+                                    <div class="select-dropdown"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input class="input--style-1" type="text" required placeholder="ADDRESS" name="address">
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <input class="input--style-1" required type="text" placeholder="USER NAME" name="username">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <input class="input--style-1" required type="password" placeholder="PASSWORD" name="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-space">
+                        <div class="col-2">
+                            <div class="input-group">
+                                <input class="input--style-1" required type="email" placeholder="EMAIL ADDRESS" name="email">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <input class="input--style-1" required type="text" placeholder="PHONE NUMBER" name="phone">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="p-t-20">
+                        <button class="btn btn--radius btn--green" type="button"><a href="/Home/Login" style="text-decoration:none;color:#fff;">Back to Login</a></button>
+                        <button class="btn btn--radius btn--green" type="submit" style="float:right;">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

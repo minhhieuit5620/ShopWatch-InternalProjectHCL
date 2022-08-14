@@ -1,0 +1,339 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+@*<div class="content-wrap">
+    <div class="main">
+        <div class="container-fluid">*@
+            <div class="row">
+                <div class="col-lg-8 p-r-0 title-margin-right">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h1>Hello @Session["Name"], <span>Welcome Here</span></h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# column -->
+                <div class="col-lg-4 p-l-0 title-margin-left">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="#">Dashboard</a></li>
+                                <li class="active">Home</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# column -->
+            </div>
+            <!-- /# row -->
+          
+
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card alert">
+                            <div class="products_1 text-center">
+                                <div class="pr_img_price">
+                                    <div class="product_img">
+                                        <img src="assets/images/product_1/download.jpg" alt="" />
+                                    </div>
+                                    <div class="product_price">
+                                        <div class="prd_prc_box">
+                                            <div class="product_price">
+                                                <p>@ViewBag.Pro</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product_details">
+                                    <i class="ti-bag f-s-48 "></i>
+                                    <div class="product_name">
+                                        <h4>Product</h4>
+                                    </div>
+                                   
+                                    <div class="prdt_add_to_cart">
+                                        <a href="/Admin/Products" class="btn btn-primary btn-rounded  m-l-5">Detail</a>                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card alert">
+                            <div class="products_1 text-center">
+                                <div class="pr_img_price">
+                                    <div class="product_img">
+                                        <img src="assets/images/product_1/download.jpg" alt="" />
+                                    </div>
+                                    <div class="product_price">
+                                        <div class="prd_prc_box">
+                                            <div class="product_price">
+                                                <p>@ViewBag.user</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product_details">
+                                    <i class="ti-user f-s-48 "></i>
+                                    <div class="product_name">
+                                        <h4>User</h4>
+                                    </div>
+                                    @*<div class="product_des">
+                                        <p>Vimply dummy text the printing and type setting indust.</p>
+                                    </div>*@
+                                    <div class="prdt_add_to_cart">
+                                        <button type="button" class="btn btn-primary btn-rounded  m-l-5">Detail</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card alert">
+                            <div class="products_1 text-center">
+                                <div class="pr_img_price">
+                                    <div class="product_img">
+                                        <img src="assets/images/product_1/download.jpg" alt="" />
+                                    </div>
+                                    <div class="product_price">
+                                        <div class="prd_prc_box">
+                                            <div class="product_price">
+                                                <p>@ViewBag.cate</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product_details">
+                                    <i class="ti-support f-s-48 "></i>
+                                    <div class="product_name">
+                                        <h4>Category Product</h4>
+                                    </div>
+                                    @*<div class="product_des">
+                                        <p>Vimply dummy text the printing and type setting indust.</p>
+                                    </div>*@
+                                    <div class="prdt_add_to_cart">
+                                        <button type="button" class="btn btn-primary btn-rounded  m-l-5">Detail</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card alert">
+                            <div class="products_1 text-center">
+                                <div class="pr_img_price">
+                                    <div class="product_img">
+                                        <img src="assets/images/product_1/download.jpg" alt="" />
+                                    </div>
+                                    <div class="product_price">
+                                        <div class="prd_prc_box">
+                                            <div class="product_price">
+                                                <p>@ViewBag.order</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product_details">
+                                    <i class="ti-clipboard f-s-48 "></i>
+                                    
+                                    <div class="product_name">
+                                        <h4>Order</h4>
+                                    </div>
+                                   
+                                    <div class="prdt_add_to_cart">
+                                        <button type="button" class="btn btn-primary btn-rounded  m-l-5">Detail</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+            </div>
+            <!-- /# main content -->
+
+
+
+
+
+
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card alert">
+                            <div class="products_1 text-center">
+                                <div class="pr_img_price">
+                                    <div class="product_img">
+                                        <img src="assets/images/product_1/download.jpg" alt="" />
+                                    </div>
+                                    <div class="product_price">
+                                        <div class="prd_prc_box">
+                                            <div class="product_price">
+                                                <p>$30</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product_details">
+                                    <div class="product_name">
+                                        <h4>Four Seasons Pizza</h4>
+                                    </div>
+                                    <div class="product_des">
+                                        <p>Vimply dummy text the printing and type setting indust.</p>
+                                    </div>
+                                    <div class="prdt_add_to_cart">
+                                        <button type="button" class="btn btn-primary btn-rounded  m-l-5">add to cart</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card alert">
+                            <div class="products_1 text-center">
+                                <div class="pr_img_price">
+                                    <div class="product_img">
+                                        <img src="assets/images/product_1/download.jpg" alt="" />
+                                    </div>
+                                    <div class="product_price">
+                                        <div class="prd_prc_box">
+                                            <div class="product_price">
+                                                <p>$30</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product_details">
+                                    <div class="product_name">
+                                        <h4>Pepperoni Pizza</h4>
+                                    </div>
+                                    <div class="product_des">
+                                        <p>Vimply dummy text the printing and type setting indust.</p>
+                                    </div>
+                                    <div class="prdt_add_to_cart">
+                                        <button type="button" class="btn btn-primary btn-rounded  m-l-5">add to cart</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card alert">
+                            <div class="products_1 text-center">
+                                <div class="pr_img_price">
+                                    <div class="product_img">
+                                        <img src="assets/images/product_1/download.jpg" alt="" />
+                                    </div>
+                                    <div class="product_price">
+                                        <div class="prd_prc_box">
+                                            <div class="product_price">
+                                                <p>$30</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product_details">
+                                    <div class="product_name">
+                                        <h4>Grilled Chicken Pizza</h4>
+                                    </div>
+                                    <div class="product_des">
+                                        <p>Vimply dummy text the printing and type setting indust.</p>
+                                    </div>
+                                    <div class="prdt_add_to_cart">
+                                        <button type="button" class="btn btn-primary btn-rounded  m-l-5">add to cart</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-3">
+                        <div class="card alert">
+                            <div class="products_1 text-center">
+                                <div class="pr_img_price">
+                                    <div class="product_img">
+                                        <img src="assets/images/product_1/download.jpg" alt="" />
+                                    </div>
+                                    <div class="product_price">
+                                        <div class="prd_prc_box">
+                                            <div class="product_price">
+                                                <p>$30</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="product_details">
+                                    <div class="product_name">
+                                        <h4>Hawaian Pizza</h4>
+                                    </div>
+                                    <div class="product_des">
+                                        <p>Vimply dummy text the printing and type setting indust.</p>
+                                    </div>
+                                    <div class="prdt_add_to_cart">
+                                        <button type="button" class="btn btn-primary btn-rounded  m-l-5">add to cart</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /# card -->
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+            </div>
+            <!-- /# main content -->
+
+
+
+
+
+
+
+
+
+        <!--</div>-->
+        <!-- /# container-fluid -->
+    <!--</div>-->
+    <!-- /# main -->
+<!--</div>-->
+<!-- /# content wrap -->
+
+<div id="search">
+    <button type="button" class="close">×</button>
+    <form>
+        <input type="search" value="" placeholder="type keyword(s) here" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+

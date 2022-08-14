@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+
+
+
+<div class="row">
+    <div class="col-lg-8 p-r-0 title-margin-right">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Manager Product</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /# column -->
+    <div class="col-lg-4 p-l-0 title-margin-left">
+        <div class="page-header">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="active">Home</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /# column -->
+</div>
+
+<div class="col-lg-12">
+    <div class="card alert">
+        <div class="card-header">
+            <h2>Detail product @Model.Product.ProductName</h2>
+            <img style="height:200px;" src="~/Asset/img/@Model.Product.ProductImage" />
+            <h5 style="float:right;">Information product</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div class="col-lg-6 p-r-0 title-margin-right">
+                    <div class="form-group">
+                        <label>Name product</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                   @Model.Product.ProductName" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                   @Model.Product.Price" style="color:red;" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                   @Model.Product.Amount" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Price old</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                    @Model.Product.PriceOld" aria-describedby="helpId">
+
+                    </div>
+                    @*<div class="form-group">
+                        <label>Price old</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                       @ViewBag.nameCategory.NameCategory" aria-describedby="helpId">
+
+                    </div>*@
+                  
+
+
+                </div>
+                <div class="col-lg-6 p-l-0 title-margin-right">
+                    <div class="form-group">
+                        <label>Brand</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Brand" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Origin</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Origin" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Type " aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Thickness" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Shell material</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Shell_material" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Strap material</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Strap_material" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Glass material</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Glass_material" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Water resistance</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Water_resistance" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <input type="text" name="" id="" class="form-control" value="
+                        @Model.ProductInformation.Sex" aria-describedby="helpId">
+
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="cart-footer">
+            <a href="/Admin/Mn_Product/ShowProduct" class="btn btn-info">Back</a>
+        </div>
+    </div>
+
+</div>

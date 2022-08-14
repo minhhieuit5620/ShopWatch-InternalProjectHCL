@@ -1,0 +1,162 @@
+﻿@model PagedList.IPagedList<ShopWatch.Models.Product>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "ViewProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url('../../Asset/img/banner/0e45fbdec938239ec6bdf34d0c6bd0af.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
+                <h1 class="mb-0 bread">Products</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 mb-5 text-center">
+                <ul class="product-category">
+                    <li><a href="#" class="active">All</a></li>
+                    @foreach (var i in ViewBag.listProductCate)
+                    {
+                        <li><a href="/Product/ManufacturerProduct/@i.Manufacturer_id">@i.Name</a></li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="/Product/SingleProduct/@item.ProductID" class="img-prod">
+                            <img class="img-fluid" src="~/Asset/img/@item.ProductImage" alt="Colorlib Template">
+                            @*<span class="status">30%</span>*@
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <div style="height:60px;">
+                                <h3><a href="/Product/SingleProduct/@item.ProductID">@item.ProductName</a></h3>
+                            </div>
+
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price"><span class="mr-2 price-dc"> @string.Format("${0:#,##0}", item.PriceOld)</span><span class="price-sale">@string.Format("${0:#,##0}", item.Price)</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+
+                                    @*<a href="javascript:void(0)" class="buy-now d-flex justify-content-center align-items-center mx-1" onclick="AddToCart(@item.ProductID)">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>*@
+                                    <a href="javascript:void(0)" class="toa buy-now d-flex justify-content-center align-items-center mx-1" style="cursor:pointer" id="toa" onclick="AddToCartCookie(@item.ProductID)">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="javascript:void(0)" class="heart d-flex justify-content-center align-items-center " onclick="AddToFavorite(@item.ProductID)">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+
+        </div>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    <ul style="text-align:center">
+                        @Html.PagedListPager(Model, page => Url.Action("ViewProduct", new { page }), new PagedListRenderOptions
+                            {
+                                     MaximumPageNumbersToDisplay = 5
+
+                             })
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryunobtrusive")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script>
+
+        function AddToCart(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddtoCart",
+                data: { idProduct: id, quantity: 1 },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+
+        }
+        function AddToFavorite(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddToFavorite",
+                data: { id: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+        }
+        function AddToCartCookie(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddCartCookie",
+                data: { id: id, quantity: 1 },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    //window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+        }
+        $(function () {
+
+            toastr.options = {
+                "closeButton": true
+
+            };
+
+            $(".toa").click(function () {
+                // console.log("clicked");
+                toastr.success("Product added shopping cart", "Shopping cart", { tapToDismiss: true });
+
+            });
+        });
+
+    </script>
+
+}

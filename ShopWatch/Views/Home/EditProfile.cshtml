@@ -1,0 +1,105 @@
+﻿@model ShopWatch.Models.DTO.Password_User
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 ftco-animate">
+             
+                    <form action="/Home/EditProfile" method="post" class="billing-form" onSubmit="return confirm('You want to change information?');return false;">
+                        <h3 class="mb-4 billing-heading">Your Information</h3>
+                        <div class="row align-items-end" style="color:#000;">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="firstname">Full Name</label>
+                                    <input type="text" class="form-control" name="Fullname" value="@ViewBag.infoUser.FullName " required placeholder="Enter your first name">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="streetaddress">Address</label>
+                                    <input type="text" class="form-control" name="Address" value="@ViewBag.infoUser.Address" required placeholder="House number, street name,...">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+
+                                    <input type="text" name="phone" class="form-control" value="@ViewBag.infoUser.Phone" required placeholder="Enter your phone number">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="emailaddress">Email Address</label>
+                                    <input type="email" name="email" class="form-control" value="@ViewBag.infoUser.Email" required placeholder="Enter your email">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">Gender</label>
+
+                                    @*<select>
+
+                                        </select>*@
+                                    <input type="text" name="gender" class="form-control" value="@ViewBag.infoUser.Gender" required placeholder="Gender">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="emailaddress">Birthday</label>
+                                    <input type="text" name="dob" class="form-control" value="@ViewBag.infoUser.Dob.ToString("MMMM/dd/yyyy")" required placeholder="Date of birth ">
+                                </div>
+                            </div>
+                            <h3 class="mb-4 billing-heading">Account Information</h3>
+                            <div class="w-100"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="note">UserName</label>
+                                    <input type="text" name="username" required class="form-control" value="@ViewBag.infoUser.UserName" placeholder="Enter your UserName" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="checkbox" name="changePass"> <label> Please check to checkbox if you want to change password</label>
+                            </div>
+                           @* @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                            @*@if(InputExtensions.)*@
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="note">Password</label>
+                                    <input type="password" name="password" required class="form-control" placeholder="Enter your current password">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="note">New Password</label>
+                                    <input type="password" name="newpassword" required class="form-control" placeholder="Enter your new password">
+                                   @* @Html.ValidationMessageFor(model => model.NewPassword, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="note">Confirm New Password</label>
+                                    <input type="password" name="re_newpassword"  required class="form-control" placeholder="Confirm new password">
+                                   @* @Html.ValidationMessageFor(model => model.ReNewPassword, "", new { @class = "text-danger" })*@
+                                </div>
+                            </div>
+
+                        </div>
+                        <button type="submit" id="toa" data-id="5" class="btn btn-primary py-3 px-4">Submit</button>
+                    </form><!-- END -->
+
+               
+            </div>
+
+        </div>
+    </div>
+</section> <!-- .section -->

@@ -1,0 +1,251 @@
+﻿@model ShopWatch.Models.Product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+
+
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-lg-12 p-r-0 title-margin-right">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Manager Product</h1>
+
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+
+    </div>
+    <div class="form-horizontal">
+        <hr />
+        <div class="card-body">
+            <div class="table-responsive" style="padding-bottom: 30px;">
+                <div class="col-lg-8 p-r-0 title-margin-right">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h1>Edit Product</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# column -->
+                <div class="col-lg-4 p-l-0 title-margin-left">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <ol class="breadcrumb text-right">
+                                <li><a href="#">Dashboard</a></li>
+                                <li class="active">Home</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ProductID)
+                <div class="col-lg-7 p-r-0 title-margin-right">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PriceOld, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PriceOld, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PriceOld, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ImportPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ImportPrice, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ImportPrice, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" style="margin-right:15px;">Manufacturer</label>
+
+                        <select class="form-control" name="Manufacturer_id" id="">
+
+                            @foreach (var item in ViewBag.manufacturers)
+                            {
+
+                                <option value="@item.Manufacturer_id"> @item.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" style="margin-right:15px;">Category</label>
+                        <select class="form-control" name="Category_id" id="">
+
+                            @foreach (var item in ViewBag.category)
+                            {
+                                <option value="@item.Category_id"> @item.NameCategory</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                            <label class="control-label col-md-2" style="margin-right:15px;">Product Image</label>
+                            <input type="file" name="ProductImage" />
+
+                        </div>*@
+                    @*<div class="form-group">
+                            <label>Image</label>
+                            <input type="file" name="ProductImage" />
+                            <img style="height:100px;width:auto;" src="~/Asset/img/@Model.ProductImage" />
+                        </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductImage, htmlAttributes: new { @class = "control-label col-md-2", style = "margin-right: 20px;" })
+                        <input type="file" name="ProductImage" />
+                    </div>
+
+
+                </div>
+                <div class="col-lg-5 p-r-0 title-margin-right">
+
+                    <div class="form-group">
+                        <label>Brand</label>
+                        @*<input type="text" name="Brand" id="" class="form-control" value="
+                            @ViewBag.ProductInfo.Brand" aria-describedby="helpId">*@
+                        <select class="form-control" name="Brand" id="">
+                            <option value="@ViewBag.ProductInfo.Brand"> @ViewBag.ProductInfo.Brand</option>
+                            @foreach (var item in ViewBag.manufacturers)
+                            {
+
+                                <option value="@item.Name"> @item.Name</option>
+                            }
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Origin</label>
+                        @*<input type="text" name="Origin" id="" class="form-control" value="
+                            @ViewBag.ProductInfo.Origin" aria-describedby="helpId">*@
+                        <select class="form-control" name="Origin" id="">
+                            <option value="@ViewBag.ProductInfo.Origin">@ViewBag.ProductInfo.Origin</option>
+                            <option value="Japan"> Japan</option>
+                            <option value="China"> China</option>
+                            <option value="Vietnam"> Vietnam</option>
+                            <option value="Switzerland"> Switzerland</option>
+                            <option value="USA"> USA</option>
+                            <option value="ThaiLand">ThaiLand</option>
+                            <option value="Korea"> Korea </option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        @*<input type="text" name="Type" id="" class="form-control" value="
+                            @ViewBag.ProductInfo.Type " aria-describedby="helpId">*@
+                        <select class="form-control" name="Type" id="">
+                            <option value="@ViewBag.ProductInfo.Type"> @ViewBag.ProductInfo.Type</option>
+                            <option value="Automatic"> Automatic</option>
+                            <option value="Chronograph"> Chronograph</option>
+                            <option value="Solar"> Solar</option>
+                            <option value="Hybrid"> Hybrid</option>
+                            <option value="Smart"> Smart</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Thickness</label>
+                        <input type="text" name="Thickness" id="" class="form-control" value="
+                        @ViewBag.ProductInfo.Thickness" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Shell material</label>
+                        <input type="text" name="Shell_material" id="" class="form-control" value="
+                        @ViewBag.ProductInfo.Shell_material" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Strap material</label>
+                        <input type="text" name="Strap_material" id="" class="form-control" value="
+                         @ViewBag.ProductInfo.Strap_material" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Glass material</label>
+                        <input type="text" name="Glass_material" id="" class="form-control" value="
+                         @ViewBag.ProductInfo.Glass_material" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Water resistance</label>
+                        <input type="text" name="Water_resistance" id="" class="form-control" value="
+                         @ViewBag.ProductInfo.Water_resistance" aria-describedby="helpId">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        @*<input type="text" name="Sex" id="" class="form-control" value="
+                            @ViewBag.ProductInfo.Sex" aria-describedby="helpId">*@
+                        <select class="form-control" name="Sex" id="">
+                            <option value="@ViewBag.ProductInfo.Sex"> @ViewBag.ProductInfo.Sex</option>
+                            <option value="Male"> Male</option>
+                            <option value="Female"> Female</option>
+                            <option value="Both genders"> Both genders</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <lable>More Image</lable>
+                        <input type="file" multiple name="MoreImage" />
+                    </div>
+
+                </div>
+                <div class="form-group">
+
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="btn btn-default" style="margin-right: 100px; margin-left: -100px;">
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+

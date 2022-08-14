@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "EditProfile";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<!-- /# row -->
+@if (Session["User"] == null)
+{
+    <p>
+        u need login
+    </p>
+}
+else
+{
+    <section id="main-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card alert">
+                    <div class="card-header">
+                        <h4>My Profile </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="user-profile m-t-15">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="user-photo m-b-30">
+                                        <img class="img-responsive" src="~/Areas/Admin/assets/images/avatar/@ViewBag.user.Image" alt="" />
+                                    </div>
+                                    @*<img src="~/Areas/Admin/assets/images/avatar/z3285513269157_032c517c53e6be404e88b8eac71c19d3.jpg" />*@
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="user-profile-name dib">Detail Profile</div>
+                                    @*<div class="useful-icon dib pull-right">
+                                            <span><a href=""><i class="ti-pencil-alt"></i></a> </span>
+                                            <span><a href=""><i class="ti-printer"></i></a></span>
+                                            <span><a href=""><i class="ti-download"></i></a></span>
+                                            <span><a href=""><i class="ti-share"></i></a></span>
+                                        </div>*@
+                                    <div class="custom-tab user-profile-tab">
+                                        <div style="float:right;"> <input type="button" id="beginUpdate" value="Update profile" /> </div>
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#1" aria-controls="1" role="tab" data-toggle="tab">About</a></li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="1">
+                                                <div class="contact-information">
+                                                    <div class="phone-content">
+                                                        <span class="contact-title">Name:</span>
+                                                        <input class="form-control" name="type" value="@ViewBag.user.FullName" disabled />
+                                                    </div>
+                                                    <div class="website-content">
+                                                        <span class="contact-title">Address:</span>
+                                                        <input class="form-control" name="type" value="@ViewBag.user.Address" disabled />
+                                                        @*<span class="contact-website">6</span>*@
+                                                    </div>
+                                                    <div class="skype-content">
+                                                        <span class="contact-title">Email:</span>
+                                                        <input class="form-control" value="@ViewBag.user.Email" disabled />
+                                                    </div>
+                                                    <div class="address-content">
+                                                        <span class="contact-title">Phone:</span>
+                                                        <input class="form-control" name="type" value="@ViewBag.user.Phone" disabled />
+                                                    </div>
+                                                    <div class="gender-content">
+                                                        <span class="contact-title">Gender:</span>
+                                                        <select class="form-control" name="type" disabled>
+                                                            <option value="@ViewBag.user.Gender" disabled>
+                                                                @ViewBag.user.Gender
+                                                            </option>
+                                                            <option value="Male">
+                                                                Male
+                                                            </option>
+                                                            <option value="Female">
+                                                                Female
+                                                            </option>
+                                                            <option value="Orther">
+                                                                Orther
+                                                            </option>
+                                                        </select>
+                                                        @* <input class="form-control"  name="type" value="@ViewBag.user.Gender" disabled />*@
+
+                                                    </div>
+                                                    <div class="phone-content">
+                                                        <span class="contact-title">Date of birth:</span>
+                                                        <input class="form-control" type="date" name="type" value="@ViewBag.birth" disabled />
+                                                    </div>
+                                                    <div class="phone-content">
+                                                        <span class="contact-title">Posision:</span>
+                                                        @if (@ViewBag.user.Rol == 2)
+                                                        {
+                                                            <input class="form-control" value="Staff" disabled />
+                                                        }
+                                                        @if (@ViewBag.user.Rol == 3)
+                                                        {
+                                                            <input class="form-control" value="Manager" disabled />
+                                                        }
+
+                                                    </div>
+                                                    <div class="birthday-content">
+                                                        <span class="contact-title">User Name:</span>
+                                                        <input class="form-control" value="@ViewBag.user.UserName" disabled />
+
+                                                    </div>
+                                                    <div class="phone-content">
+                                                        <span class="contact-title">Password:</span>
+                                                        <input class="form-control" name="pass" type="password" value="@ViewBag.user.PassWord" disabled />
+
+                                                    </div>
+
+                                                    <div  >
+                                                        <button name="type" type="button" style="float:right;margin:20px 40px;" hidden >Save</button>
+                                                        @*<input class="form-control" name="" type="button" value="Sa"  /></div>*@
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# column -->
+            </div>
+            <!-- /# row -->
+            @*<div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer">
+                            <p>This dashboard was generated on <span id="date-time"></span> <a href="#" class="page-refresh">Refresh Dashboard</a></p>
+                        </div>
+                    </div>
+                </div>*@
+    </section>
+
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryunobtrusive")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            @* --------------------//Delete mutiple by checkbox
+        -------------------------------------------------------------------//*@
+
+            $("#beginUpdate").click(function () {
+                console.log("clicked");
+               // $("input").prop('disabled', false);
+                $("input[name=type]").removeAttr('disabled');
+                $("button[name=type]").removeAttr('hidden');
+                $("select[name=type]").removeAttr('disabled');
+                });
+
+        });
+
+
+    </script>
+}
+

@@ -1,0 +1,213 @@
+﻿@model List<ShopWatch.Models.Cart>
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+<div class="hero-wrap hero-bread" style="background-image: url(../../Asset/Cart/checkout-banner.png);">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+
+        </div>
+    </div>
+</div>
+<section class="ftco-section" >
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 ftco-animate">
+                @if (ViewBag.infoUser != null)
+                {
+                    <form action="/Checkout/Checkout" method="post" class="billing-form" onSubmit="return confirm('You want to order');return false;">
+                        <h3 class="mb-4 billing-heading">Billing Details</h3>
+                        <div class="row align-items-end" style="color:#000;">
+                           
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="firstname">Full Name</label>
+                                        <input type="text" class="form-control" name="Fullname" value="@ViewBag.infoUser.FullName " required placeholder="Enter your first name">
+                                    </div>
+                                </div>                               
+                                <div class="w-100"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="streetaddress">Address</label>
+                                        <input type="text" class="form-control" name="Address" value="@ViewBag.infoUser.Address" required placeholder="House number, street name,...">
+                                    </div>
+                                </div>                              
+                                <div class="w-100"></div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+
+                                        <input type="text" name="phone" class="form-control" value="@ViewBag.infoUser.Phone" required placeholder="Enter your phone number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="emailaddress">Email Address</label>
+                                        <input type="email" name="email" class="form-control" value="@ViewBag.infoUser.Email" required placeholder="Enter your email">
+                                    </div>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="note">Note</label>
+                                        <input type="text" name="note" required class="form-control" placeholder="Enter your note">
+                                    </div>
+                                </div>
+                                <div class="w-100"></div>
+                        
+
+                            <div class="col-md-12">
+                                <div class="form-group mt-4">
+                                    <div class="radio" required>
+                                        <label class="mr-3"><input type="radio" name="Payment_method" value="Cash On Delivery"> Cash On Delivery </label>
+                                        <label><input type="radio" name="Payment_method" value="Direct Bank Transfer"> Direct Bank Transfer</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" id="toa" data-id="5" class="btn btn-primary py-3 px-4" >Place an order</button>
+                    </form><!-- END -->
+
+                }
+                else
+                {
+                    <h2>Order Successful</h2> 
+                }
+            </div>
+            <div class="col-xl-5">
+                <div class="row mt-5 pt-3">
+                    @if (Model == null || Model.Count == 0)
+                    {
+                        <div class="col-md-12 d-flex mb-5">
+                            <div class="cart-detail cart-total p-3 p-md-4">
+                                <p style="border :1px solid; color:red; display:table;padding:15px;">Empty Cart</p>
+                                <img style="width: 200px; height: auto; margin-left: 100px; padding-bottom:15px;" src="~/Asset/Cart/mascot@2x.png" />
+                                <div class="clear"></div>
+                                <a href="/Product/ViewProduct"><input type="button" class="btn btn-primary" value="◄ Back To Shop"></a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12 d-flex mb-5">
+                            <div class="cart-detail cart-total p-3 p-md-4">
+                                @{
+                                    var Subtotal = 0;
+                                }
+                                <table class="table" style="min-width: 0px !important;">
+                                    <thead class="thead-primary">
+                                        <tr class="text-center">
+                                            <th>
+                                                Image
+                                            </th>
+                                            <th>
+                                                Quantity
+                                            </th>
+                                            <th>
+                                                Price
+                                            </th>
+                                            <th>
+                                                Total
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                        <tr>
+                                            <td>
+                                                <a href="/Product/SingleProduct/@item.IdProduct">
+                                                    <img style="height:70px;" title="@item.NameProduct" src="../../Asset/img/@item.Image" />
+                                                </a>
+                                            </td>
+
+                                            <td>x @item.Quantity </td>
+
+                                            <td>  @string.Format("${0:#,##0}", item.Price) </td>
+                                            <td>  @string.Format("${0:#,##0}", item.TotalPrice) </td>
+
+                                        </tr>
+
+
+                                            <input type="hidden" class="form-group" value="@item.Price" />
+                                            <input type="hidden" class="form-group" value="@item.TotalPrice" />
+                                            Subtotal += item.TotalPrice;
+                                        }
+                                    </tbody>
+                                    @*<tr>
+                                        <td> <img src="../../Asset/img/@item.Image" /></td>
+                                    </tr>*@
+                                </table>
+                               
+                                   
+                                @{
+                                    var tax = 0;
+                                    var total = 0;
+
+                                    tax = Subtotal * 10 / 100;
+                                    total = Subtotal + tax;
+                                }
+                                <hr>
+                                <h3 class="billing-heading mb-4">Cart Total</h3>
+                                <p class="d-flex">
+                                    <span>Subtotal</span>
+                                    <span> @string.Format("${0:#,##0}", Subtotal)</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Tax</span>
+                                    <span>  @string.Format("${0:#,##0}", tax)</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Discount</span>
+                                    <span>$0.00</span>
+                                </p>
+                                <hr>
+                                <p class="d-flex total-price">
+                                    <span>Total</span>
+                                    <span> @string.Format("${0:#,##0}", total)</span>
+                                </p>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section> <!-- .section -->
+
+
+@section scripts {
+    <script type="text/javascript">
+       
+        //$(document).ready(function () {                    
+        //    window.onload = function () {
+        //        if (!window.location.hash) {
+        //            window.location = window.location + '#loaded';
+        //            window.location.reload();
+        //        }
+        //    }
+       
+        //});
+          
+        $(function () {
+            toastr.options = {
+                "closeButton": true
+                
+            };
+            
+            $("#toa").click(function () {
+                toastr.warning("Please fill out all information in form order", "Order", { tapToDismiss: true });
+               
+            });
+        });
+    </script>
+   
+
+
+}

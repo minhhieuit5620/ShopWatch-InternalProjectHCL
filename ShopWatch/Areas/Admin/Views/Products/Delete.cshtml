@@ -1,0 +1,127 @@
+﻿@model ShopWatch.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+<div >
+
+    <div class="row">
+        <div class="col-lg-12 p-r-0 title-margin-right">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Manager Product</h1>
+
+                </div>
+            </div>
+        </div>
+        <!-- /# column -->
+
+    </div>
+    <div class="form-horizontal">
+        <hr />
+        <div class="card-body">
+            <div class="table-responsive" style="padding-bottom: 30px;">
+                @*<div class="col-lg-8 p-r-0 title-margin-right">
+            <div class="page-header">
+                <div class="page-title">
+                    <h1>Delete Product </h1><p class="text-danger">Are you sure you want to delete this?</p>
+
+                </div>
+            </div>
+        </div>*@
+
+
+                <h1 style="padding-left:10px;">Delete Product </h1><p style="padding-left:10px;" class="text-danger">Are you sure you want to delete this?</p>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ProductName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProductImage)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ProductImage)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PriceOld)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PriceOld)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ImportPrice)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ImportPrice)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Manufacturer_id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Manufacturer_id)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Amount)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Category_id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Category_id)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <button class="btn btn-default" style="margin-left: 40px; margin-right: 20px;">
+                    @Html.ActionLink("Back to List", "Index")
+                </button>
+               
+                <input type="submit" value="Delete" class="btn btn-danger" /> 
+
+            </div>
+                }
+            </div>
+            </div>
+        </div>
+    </div>

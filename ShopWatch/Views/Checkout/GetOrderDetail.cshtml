@@ -1,0 +1,145 @@
+﻿@model ShopWatch.Models.Order
+@{
+    ViewBag.Title = "GetOrderDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 ftco-animate">
+            <h3 style="padding:50px;">
+                Your Order
+            </h3>
+            </div>
+
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>Product name</th>
+                                    <th>Image</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Order date</th>
+                                    <th>Status</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var i in ViewBag.orderDetail)
+                                {
+                                    <tr>
+                                        <td>
+                                            @i.ProductName
+                                        </td>
+                                        <td class="image-prod">
+                                            <a href="/Product/SingleProduct/@i.ProductID">
+                                                <div class="img" style="background-image:url(../../Asset/img/@i.Image);"></div>
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            @string.Format("${0:#,##0}", i.Price)
+                                        </td>
+                                        <td>
+                                            @i.Quantity
+                                        </td>
+                                        <td>
+                                            @string.Format("${0:#,##0}", i.Total)
+
+                                        </td>
+                                        <td>
+                                            @i.OrderDate
+                                        </td>
+                                        @if (i.Status == 1)
+                                        {
+                                            <td>
+                                                Wait for acceptance
+                                                <div> <a href="/Checkout/ChangeStatus/@i.ID" class="btn btn-danger" style="color:#000;"> Cancel Order</a></div>
+                                            </td>
+                                        }
+                                        @if (i.Status == 0)
+                                        {
+                                            <td>
+                                                Delivery
+                                            </td>
+                                        }
+                                        @if (i.Status == -1)
+                                        {
+                                            <td>
+                                                canceled
+                                            </td>
+                                        }
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="padding-top:70px;">
+
+                    <div class="col-md-4" style="display:inline-block">
+                        <div class="row align-items-end" style="color:#000;">
+                            <h3>Your Information </h3>
+                            <hr />
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="firstname">Full Name</label>
+                                    <input type="text" class="form-control" name="Fullname" value="@Model.OrderName " required placeholder="Enter your first name">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="streetaddress">Address</label>
+                                    <input type="text" class="form-control" name="Address" value="@Model.OrderAddress" required placeholder="House number, street name,...">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+
+                                    <input type="text" name="phone" class="form-control" value="@Model.OrderPhone" required placeholder="Enter your phone number">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="emailaddress">Email Address</label>
+                                    <input type="email" name="email" class="form-control" value="@Model.OrderEmail" required placeholder="Enter your email">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="float:right;">
+                        <h3>Totals</h3>(included tax)
+                        <hr />
+                        <p class="d-flex">
+                            <span>Total money : </span>
+                            <span>@string.Format("${0:#,##0}", Model.TotalMoney)</span>
+                        </p>
+
+                        <p class="d-flex total-price">
+                            <span>Payment method : </span>
+                            <span>@Model.Payment_method</span>
+                        </p>
+
+                        <p class="d-flex total-price">
+                            <span>Note : </span>
+                            <span>@Model.OrderNote</span>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

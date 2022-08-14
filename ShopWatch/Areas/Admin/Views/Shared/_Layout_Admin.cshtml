@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Areas/Admin/assets/css/lib/chartist/chartist.min.css" rel="stylesheet">
+    <link href="~/Areas/Admin/assets/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Areas/Admin/assets/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="~/Areas/Admin/assets/css/lib/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/lib/weather-icons.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/assets/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="~/Areas/Admin/assets/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Areas/Admin/assets/css/lib/unix.css" rel="stylesheet">
+    <link href="~/Areas/Admin/assets/css/style.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" rel=" stylesheet" />
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body style="background-color: #eef1f6; padding-top: 30px;">
+
+    @Html.Partial("~/Areas/Admin/Views/Shared/Sidebar.cshtml")
+
+
+    @Html.Partial("~/Areas/Admin/Views/Shared/Nav.cshtml")
+
+    <div class="content-wrap" style="background: #eef1f6; padding-top:0px !important;">
+        @if (Session["Message"] != null && !Session["Message"].Equals(""))
+        {
+            <div class="alert alert-success alert-dismissible " id="SessionMessage">
+                <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>@Session["Message"]</strong>
+            </div>Session["Message"] = "";
+        }
+        <div class="main">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <div id="search">
+        <button type="button" class="close">×</button>
+        <form>
+            <input type="text" value="" placeholder="type keyword(s) here" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <hr />
+
+
+
+
+
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="~/Areas/Admin/assets/js/lib/jquery.min.js"></script>
+    <!-- jquery vendor -->
+    <script src="~/Areas/Admin/assets/js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="~/Areas/Admin/assets/js/lib/menubar/sidebar.js"></script>
+    <script src="~/Areas/Admin/assets/js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+    <script src="~/Areas/Admin/assets/js/lib/bootstrap.min.js"></script>
+    <!-- bootstrap -->
+    <script src="~/Areas/Admin/assets/js/lib/weather/jquery.simpleWeather.min.js"></script>
+    <script src="~/Areas/Admin/assets/js/lib/weather/weather-init.js"></script>
+    <script src="~/Areas/Admin/assets/js/lib/circle-progress/circle-progress.min.js"></script>
+    <script src="~/Areas/Admin/assets/js/lib/circle-progress/circle-progress-init.js"></script>
+    @*<script src="~/Areas/Admin/assets/js/lib/chartist/chartist.min.js"></script>
+        <script src="~/Areas/Admin/assets/js/lib/chartist/chartist-init.js"></script>
+         <script src="~/Areas/Admin/assets/js/lib/sparklinechart/jquery.sparkline.min.js"></script>
+        <script src="~/Areas/Admin/assets/js/lib/sparklinechart/sparkline.init.js"></script>*@
+    <script src="~/Areas/Admin/assets/js/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/Areas/Admin/assets/js/lib/owl-carousel/owl.carousel-init.js"></script>
+    <script src="~/Areas/Admin/assets/js/scripts.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $('#SessionMessage').delay(3000).fadeOut('slow');
+    </script>
+</body>
+</html>

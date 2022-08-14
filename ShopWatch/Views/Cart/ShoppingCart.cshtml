@@ -1,0 +1,615 @@
+﻿@model List<ShopWatch.Models.Cart>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .sl {
+        width: 30px;
+        text-align: center;
+        left: 70px;
+    }
+
+    .sub {
+        width: 30px;
+        text-align: center;
+        left: 40px;
+    }
+
+    .add {
+        width: 30px;
+        text-align: center;
+        left: 100px;
+    }
+</style>
+@ViewBag.cookieinfo
+
+<div class="hero-wrap hero-bread" style="background-image: url('../../Asset/Cart/Limit__Goldbar_Banner_1224x550px.jpg'); ">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="/" style="color:black">Home</a></span> <span style="color:black">Cart</span></p>
+                <h1 class="mb-0 bread" style="color:black">My Cart</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section ftco-cart" onload="updateCookies()">
+    <div class="container">
+        @if (Model == null || Model.Count == 0)
+        {
+            <p style="border :1px solid; color:red; display:table;padding:15px;">Empty Cart</p>
+            <img style="margin-left:400px;" src="~/Asset/Cart/mascot@2x.png" />
+            <div class="clear"></div>
+            <a href="/Product/ViewProduct"><input type="button" class="btn btn-primary" value="◄ Back To Shop"></a>
+            <a href="/Checkout/getorder/"><input type="button" class="btn btn-primary" value="My Order"></a>
+            <a href="/Cart/Favorite/"><input type="button" class="btn btn-primary" value="My Favorite"></a>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12 ftco-animate">
+                    <div class="cart-list">
+
+
+                        <table class="table" id="DataTable">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>
+                                        <input type="checkbox" name="checkedAll" id="checkedAll" />
+                                    </th>
+                                    <th>Image</th>
+                                    <th>Product name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var Subtotal = 0;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+
+                                        <td>
+                                            <input type="checkbox" name="type" value="@item.IdProduct" class="checkSingle" />
+                                        </td>
+                                        <td class="image-prod">
+                                            <a href="/Product/SingleProduct/@item.IdProduct">
+                                                <div class="img" style="background-image:url(../../Asset/img/@item.Image);"></div>
+                                            </a>
+                                        </td>
+
+                                        <td class="product-name">
+                                            <a href="/Product/SingleProduct/@item.IdProduct">
+                                                <h3>@item.NameProduct</h3>
+                                            </a>
+
+
+                                        </td>
+                                        @*@String.Format("{0:C}", Model.total)*@
+
+                                        <td class="price"> @string.Format("${0:#,##0}", item.Price)</td> @*@string.Format("${0:#,##0}", item.Price)*@
+
+                                        <td class="quantity">
+                                            <div class="btn-cart">
+                                                <input type="checkbox" hidden name="id_product" data-id="@item.IdProduct" value="@item.IdProduct"  class="checkSingle" />
+                                                <input type="button" class="sub" value="-"  />
+                                                <input type="text" style="width:35px;" name="soluong" id="quantity"  class="sl" value="@item.Quantity" min="1" max="100" />
+                                                <input type="button" class="add" value="+" />
+                                            </div>
+                                            @*<div class="input-group mb-3">
+                                                    <input type="number" name="quantity" class="quantity form-control input-number" value="@item.Quantity" min="1" max="100">
+                                                </div>*@
+                                        </td>
+
+                                        <td class="total" id="tong">@string.Format("${0:#,##0}", item.TotalPrice)</td>
+                                        <td class="product-remove"><a href="@Url.Action("DeleteCart",new { IdProduct = item.IdProduct})" onclick="return confirm('Are you sure you want to delete this product?');"><span class="ion-ios-close"></span></a></td>
+                                    </tr><!-- END TR-->
+                                    Subtotal += item.TotalPrice;
+                                }
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <a href="/Product/ViewProduct"><input type="button" class="btn btn-primary" value="◄ Back Shopping"></a>
+                <a href="/Checkout/getorder"><input type="button" class="btn btn-primary" value="My Order"></a>
+                <a href="/Cart/Favorite/"><input type="button" class="btn btn-primary" value="My Favorite"></a>
+
+                @*<a href="@Url.Action("DeleteCart",new { IdProduct = item.IdProduct})" onclick="return confirm('Are you sure you want to delete this product?');"></a>*@
+                <input type="button" id="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete products?');" value="Delete">
+                @*<input type="button" class="btn btn-info" id="Update" value="Update cart" />*@
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>Coupon Code</h3>
+                        <p>Enter your coupon code if you have one</p>
+                        <form action="#" class="info">
+                            <div class="form-group">
+                                <label for="">Coupon code</label>
+                                <input type="text" class="form-control text-left px-3" placeholder="">
+                            </div>
+                        </form>
+                    </div>
+                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
+                </div>
+
+                <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>Cart Totals</h3>
+                        <p class="d-flex">
+                            <span>Subtotal</span>
+                            <span id="subtotal">@string.Format("${0:#,##0}", Subtotal)</span>
+                        </p>
+                        <p class="d-flex">
+                            <span>Tax</span>
+                            <span id="tax">
+                                @{
+                                    var tax = 0;
+                                    var total = 0;
+
+                                    tax = Subtotal * 10 / 100;
+                                    total = Subtotal + tax;
+                                }
+                                @string.Format("${0:#,##0}", tax)
+                            </span>
+                        </p>
+                        <p class="d-flex">
+                            <span>Discount</span>
+                            <span>$0.00</span>
+                        </p>
+                        <hr>
+                        <p class="d-flex total-price">
+                            <span>Total</span>
+                            <span id="total">@string.Format("${0:#,##0}", total)</span>
+                        </p>
+                    </div>
+                    @if (Session["User"] != null)
+                    {
+                        <p><a href="/Checkout/Checkout" class="btn btn-primary py-3 px-4" id="checkout">Proceed to Checkout</a></p>
+                    }
+                    else
+                    {
+                        <p><a href="/Home/Login" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                    }
+
+                </div>
+            </div>
+        }
+
+    </div>
+</section>
+
+@section Scripts{
+    @*@Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/jqueryunobtrusive")*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js" integrity="sha512-8pbzenDolL1l5OPSsoURCx9TEdMFTaeFipASVrMYKhuYtly+k3tcsQYliOEKTmuB1t7yuzAiVo+yd7SJz+ijFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function () {
+
+            @* --------------------//Delete mutiple by checkbox
+        -------------------------------------------------------------------//*@
+            //handle checkbox
+            $("#checkedAll").change(function () {
+                if (this.checked) {
+                    $(".checkSingle").each(function () {
+                        this.checked = true;
+
+                    });
+                } else {
+                    $(".checkSingle").each(function () {
+                        this.checked = false;
+
+                    });
+                }
+            });
+
+            $(".checkSingle").click(function () {
+                if ($(this).is(":checked")) {
+                    var isAllChecked = 0;
+
+                    $(".checkSingle").each(function () {
+                        if (!this.checked)
+                            isAllChecked = 1;
+
+                    });
+
+                    if (isAllChecked == 0) {
+                        $("#checkedAll").prop("checked", true);
+
+                    }
+                }
+                else {
+                    $("#checkedAll").prop("checked", false);
+                }
+            });
+
+
+        //Delete mutiple
+
+            $("#Delete").click(function () {
+
+                var selected = new Array();
+                $("input:checkbox[name=type]:checked").each(function () {
+                    //debugger;
+                    selected.push($(this).val());
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Cart/DeleteCartMutiple",
+                    data: { IdProduct: selected },
+                    dataType: "text",
+                    success: function () {
+                        console.log("Success");
+                        window.location.reload();
+                    }, error: function () {
+                        console.log("error");
+                    }
+                    //function (response) { window.location.reload(); }
+                });
+
+            });
+
+
+
+            @* --------------------//Change quantity and sum in cart
+        -------------------------------------------------------------------//*@
+
+        //handle  quantity
+
+            $(".add").click(function () {
+                var x = $(this).prev();
+                y = parseInt(x.val()) + 1;
+                x.val(y);
+                
+                var id_product = [];
+                $("input[name=id_product]").each(function () {
+                   
+                    id_product.push($(this).val());
+                });
+                var quantity = new Array();
+                $("input[name=soluong]").each(function () {
+                    // debugger;
+                    quantity.push($(this).val());
+                });
+
+                //----cookie in javascript
+
+
+                function getCookie(cname) {
+                    let name = cname + "=";                   
+                    var data = document.cookie
+                    let ca = data.split(';');
+                    for (let i = 0; i < ca.length; i++) {
+                        let c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                         }
+                        if (c.indexOf(name) == 0) {
+                        //search place name is 0 right or wrong                                                
+                        return c.substring(name.length, c.length);//get 
+                        }
+                    }
+                    return "";
+                }               
+                function check() {                    
+                    let getValue = getCookie("CookieCart")
+                    if (getValue != null) {
+                        return getValue;
+                    }
+                    else {
+                        console.log("Fail");
+                    }
+                }
+
+                var value = check()
+
+
+                //---------------------------------------
+                //var value = $.cookie("CookieCart");
+                //var decode = decodeURI(value);
+                var decodedString = atob(value);
+                //debugger;
+
+                var arrCookie = decodedString.split('#');
+
+                for (var i = 0; i < arrCookie.length - 1; i++) {
+
+                    var productDetails = arrCookie[i].split('|');
+                    for (var j = 0; j < id_product.length; j++)
+                    {
+                        if (id_product[j] == productDetails[0])
+                        {
+                            productDetails[2] = quantity[j];
+                            var itemNew = productDetails.join("|");
+                            arrCookie[i] = itemNew;
+                           
+                        }
+
+                        
+                    }
+                   
+                }
+                var newValue = arrCookie.join('#');
+                //var encode = encodeURI(newValue);
+                var encodedValue = btoa(newValue);
+                document.cookie = "CookieCart=" + encodedValue + ";path=/";
+
+              //  $.cookie("CookieCart", encodedValue, { path: '/' });
+
+
+                //var string = "Hello folks how are you doing today?";
+                //var encodedString = btoa(string); // Base64 encode the String
+                //var decodedString = atob(encodedString); // Base64 decode the String  
+                
+                //get price when click in button
+                var money = $(this).parent().parent().prev().text();
+               
+                //delete  dot and letter $ in price
+                money = money.replace(",", "").replace("$", "");
+                var z = money * y //price * quantity               
+                //print
+                var tt = $(this).parent().parent().next().text("$" + z);
+                //document.getElementById("subtotal").innerHTML = "$" + z;
+                //var tax = z * 10 / 100;
+                //document.getElementById("tax").innerHTML = "$" + tax;
+                //var total = z + tax;
+                //document.getElementById("total").innerHTML = "$" + total;
+            });
+
+            $(".sub").click(function () {
+                var x = $(this).next();
+                if (parseInt(x.val()) > 1) {
+                    y = parseInt(x.val()) - 1;
+                    x.val(y);
+                }
+                var id_product = [];
+                $("input[name=id_product]").each(function () {                    
+                    id_product.push($(this).val());
+                });
+                var quantity = new Array();
+                $("input[name=soluong]").each(function () {
+                    // debugger;
+                    quantity.push($(this).val());
+                });
+
+
+                function getCookie(cname) {
+                    let name = cname + "=";
+                    var data = document.cookie
+                    let ca = data.split(';');
+                    for (let i = 0; i < ca.length; i++) {
+                        let c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                            c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                            //search place name is 0 right or wrong                                                
+                            return c.substring(name.length, c.length);//get 
+                        }
+                    }
+                    return "";
+                }
+                function check() {
+                    let getValue = getCookie("CookieCart")
+                    if (getValue != null) {
+                        return getValue;
+                    }
+                    else {
+                        console.log("Fail");
+                    }
+                }
+
+                var value = check()
+                //var decode = decodeURI(value);
+                var decodedString = atob(value);
+                //debugger;
+                var arrCookie = decodedString.split('#');
+
+                for (var i = 0; i < arrCookie.length - 1; i++) {
+
+                    var productDetails = arrCookie[i].split('|');
+                    for (var j = 0; j < id_product.length; j++) {
+                        if (id_product[j] == productDetails[0]) {
+                            productDetails[2] = quantity[j];
+                            var itemNew = productDetails.join("|");
+                            arrCookie[i] = itemNew;
+                            
+                        }
+                    }
+                }
+                var newValue = arrCookie.join('#');
+                //var encode = encodeURI(newValue);
+                // var encodedValue = btoa(newValue);
+                var encodedValue = btoa(newValue);
+                document.cookie = "CookieCart=" + encodedValue + ";path=/";
+               // $.cookie("CookieCart", encodedValue, { path: '/' });
+
+               //$.cookie("Id_Pro", id_product.join('-'), { expires: 1, path: '/' });
+               // $.cookie("Quantity", quantity.join('-'), { expires: 1, path: '/' });
+
+                var money = $(this).parent().parent().prev().text();
+                //var money = $(this).parent().parent().next().text();
+                money = money.replace(",", "").replace("$", "");
+                var z = money * y
+                var tt = $(this).parent().parent().next().text("$" + z);
+
+                //x = document.getElementsByClassName("total").innerHTML;
+                //document.getElementById("subtotal").innerHTML = "$" + z;
+                //var tax = z * 10 / 100;
+                //document.getElementById("tax").innerHTML = "$" + tax;
+                //var total = z + tax;
+                //document.getElementById("total").innerHTML = "$" + total;
+                //var tt = $(this).parent().parent().next().next().text(formatMoney(z + "") + "đ");
+                //alert(money)
+
+                //var Id_ProductCookie = $.cookie("Id_Pro");
+                //var QuantityCookie = $.cookie("Quantity");
+
+                //var Ids = Id_ProductCookie.split('-');
+                //var Qtts = QuantityCookie.split('-');
+
+                //console.log('Id ',Ids);
+                //console.log('Qtt ',Qtts);
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/Cart/UpdateMutiple",
+                //    data: { IdProduct: Ids, Quantity: Qtts },
+                //    dataType: "text",
+                //    success: function () {
+                //        console.log("success");
+                //    }, error: function (response) { console.log("Error"); }
+                //});
+
+            });
+
+
+            $("input[name='soluong']").change(function () {
+                x += parseInt(document.getElementsByClassName("total").innerHTML);
+                alert("clicked");
+                document.getElementById("subtotal").innerHTML = x;
+            });
+
+
+            function changeQtt() {
+               // let a = document.getElementsByClassName("abc");//abc=valueqty
+                var x = 0;
+               // for (let z = 0; z < prices.length; z++) {
+                   // document.getElementsByClassName("selecttotal")[z].innerHTML = prices[z].innerHTML * a[z].value;
+                x += parseInt(document.getElementsByClassName("total").innerHTML);
+                // }
+                alert("clicked");
+
+
+                document.getElementById("subtotal").innerHTML = x;
+            //    document.getElementById("smallto").innerHTML = x;
+            }
+          
+        //Update cart
+
+            //$("#Update").click(function () {
+
+            //    var id_product = new Array();
+            //    $("input[name=id_product]").each(function () {
+            //       // debugger;
+            //        id_product.push($(this).val());
+            //    });
+            //    var quantity = new Array();
+            //    $("input[name=soluong]").each(function () {
+            //       // debugger;
+            //        quantity.push($(this).val());
+            //    });
+
+            //    $.ajax({
+            //        type: "POST",
+            //        url: "/Cart/UpdateMutiple",
+            //        data: { IdProduct: id_product, Quantity: quantity },
+            //        dataType: "text",
+            //        success: function () {
+            //            console.log("Success");
+            //            window.location.reload();
+            //        }, error: function () {
+            //            console.log("error");
+            //        }
+            //        //function (response) { window.location.reload(); }
+            //    });
+
+            //});
+
+
+            //window.onunload = function () {
+            //    var id_product = new Array();
+            //    $("input[name=id_product]").each(function () {
+            //        // debugger;
+            //        id_product.push($(this).val());
+            //    });
+            //    var quantity = new Array();
+            //    $("input[name=soluong]").each(function () {
+            //        // debugger;
+            //        quantity.push($(this).val());
+            //    });
+            //    $.ajax({
+            //        type: "POST",
+            //        url: "/Cart/UpdateMutiple",
+            //        data: { IdProduct: id_product, Quantity: quantity },
+            //        dataType: "text",
+            //        success: function () {
+            //            console.log("Success");
+            //            window.location.reload();
+            //        }, error: function () {
+            //            console.log("error");
+            //        }
+            //        //function (response) { window.location.reload(); }
+            //    });
+
+            //}
+
+
+
+          //  window.onunload = function () {
+          //      console.log("unloading");
+          ///*  $("#Update").click(function () {*/
+          //      var id_product = [];
+          //      $("input[name=id_product]").each(function () {
+          //           debugger;
+          //          id_product.push($(this).val());
+          //      });
+          //      $.cookie("Id_Pro", id_product.join('-'), { Path: '/' });
+
+          //      var quantity = new Array();
+          //      $("input[name=soluong]").each(function () {
+          //          // debugger;
+          //          quantity.push($(this).val());
+          //      });
+          //      $.cookie("Quantity", quantity.join('-'), { Path: '/' });
+
+          //      debugger;
+          //      if (quantity == null || id_product == null) {
+          //          $.ajax({
+          //              function(response) { window.location.reload(); }
+          //          });
+          //      }
+          //      else {
+          //          $.ajax({
+          //              type: "POST",
+          //              url: "/Cart/updateQuantity_MTP",
+          //              //data: {} ,
+          //              //dataType: "text",
+          //              success: function () {
+          //                  console.log("Success");
+          //                  window.location.reload();
+          //              }, error: function () {
+          //                  console.log("error");
+          //              }
+          //          });
+          //      }
+
+
+          //  };
+
+
+        });
+
+    </script>
+
+
+
+
+}
+
+

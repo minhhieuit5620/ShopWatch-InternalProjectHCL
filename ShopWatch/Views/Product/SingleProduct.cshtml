@@ -1,0 +1,261 @@
+﻿@model ShopWatch.Models.Product
+@*@model PagedList.IPagedList<ShopWatch.Models.Product>*@
+@*@using PagedList.Mvc*@
+@{
+    ViewBag.Title = "SingleProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    .table tbody tr td {
+        padding: 0.75rem;
+        border-bottom:0px solid !important ;
+    }
+    .title-info{
+        float:left;
+
+    }
+    .More-img {
+        margin-top:40px;
+        @*width: 70%;*@
+        text-align: center;
+        @*margin-left: 75px;*@
+    }
+    .More-img img {
+        height: 80px;
+        width: auto;
+    }
+    .add-to-cart{
+
+    }
+   /* .info {
+        float: left;
+    }*/
+
+
+</style>
+
+<div class="hero-wrap hero-bread" style="background-image: url('../../Asset/img/banner/f12f28f99b8bcba0441b67c5334bca1e.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span class="mr-2"><a href="/Product/ViewProduct">Product</a></span> <span>Product Single</span></p>
+                <h1 class="mb-0 bread">Product Detail</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate">
+                <a href="../../Asset/img/@Model.ProductImage" class="image-popup"><img src="../../Asset/img/@Model.ProductImage" class="img-fluid" alt="Colorlib Template"></a>
+
+                
+                <div class="More-img">
+                    @{
+                        var InputFileName = @ViewBag.InfomationPro.MoreImage.Split(';');
+                    }
+                    @*var image = Path.Combine("../../Asset/img/more-image/" + a.MoreImage.Split(';'));*@
+                    @for (int i = 0; i < InputFileName.Length - 1; i++)
+                    {
+                        <a href="@Path.Combine("../../Asset/img/more-image/"+ InputFileName[i])" class="image-popup"><img src="@Path.Combine("../../Asset/img/more-image/"+ InputFileName[i])" class="img-fluid" alt="Colorlib Template"></a>
+                    }
+
+
+
+
+                </div>
+
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <h3>@Model.ProductName</h3>
+
+                <p class="price"><span style="color:red;">@string.Format("${0:#,##0}", Model.Price)</span></p>
+                <p>
+                    @Model.Description
+                </p>
+                <div class="row mt-4" style="position:relative;">
+
+                    <div class="w-100"></div>
+
+                    <div class="w-100"></div>
+
+
+                    <form action="@Url.Action("AddCartCookie", "Cart", new { ProductID = Url.RequestContext.RouteData.Values["Id"] })" method="get" class="cart">
+                        <input type="hidden" name="id" value="@Model.ProductID" />
+                        <div class="quantity input-group col-md-6 d-flex mb-3">
+                            <input type="number" size="4" id="quantity" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" style="width: 70px;text-align: center;">
+                        </div>
+                        <div class="col-md-12">
+                            <p style="color: #000;">@Model.Amount Products Available</p>
+                        </div>
+                        <button type="submit" class="btn btn-default add-to-cart" style="border-radius: 20px; background-color: #82ae46 ">
+                            Add To Cart
+
+                        </button>
+                      
+                        <a style="position: absolute; font-size: 30px; top: 87px; left: 155px;" href="javascript:void(0)" class="heart d-flex justify-content-center align-items-center "   onclick="AddToFavorite(@Model.ProductID)">
+                            <span><i class="ion-ios-heart"></i></span>
+                        </a>
+                    </form>
+
+
+
+                    @*
+                        <p><a href="/Cart/AddToCart/@Model.ProductID" class="btn btn-black py-3 px-5">Add to Cart</a></p>*@
+                </div>
+
+                <div style=" width:100%;text-align:center;margin-top:50px; background-color:#f8e6cb"> <h3>Information Product</h3> </div>
+
+                <table class="table table-hover table-info" style="min-width:0px !important ">
+                    <tbody>
+
+                        <tr>
+                            <td class="title-info">Brand</td>
+                            <td class="info"> @ViewBag.InfomationPro.Brand</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info">Origin</td>
+                            <td class="info">@ViewBag.InfomationPro.Origin</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info">Type</td>
+                            <td class="info">@ViewBag.InfomationPro.Type</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info">Thickness</td>
+                            <td class="info">@ViewBag.InfomationPro.Thickness</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info">Shell Material</td>
+                            <td class="info">@ViewBag.InfomationPro.Shell_material</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info">Strap material</td>
+                            <td class="info">@ViewBag.InfomationPro.Strap_material</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info">Glass material</td>
+                            <td class="info">@ViewBag.InfomationPro.Glass_material</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info">Water resistance</td>
+                            <td class="info">@ViewBag.InfomationPro.Water_resistance</td>
+                        </tr>
+                        <tr>
+                            <td class="title-info">Gender</td>
+                            <td class="info">@ViewBag.InfomationPro.Sex</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section" style="padding:0px;">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Products</span>
+                <h2 class="mb-4">Related Products</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            @foreach (var RelatedPro in ViewBag.relatedProduct)
+            {
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="/Product/SingleProduct/@RelatedPro.ProductID" class="img-prod">
+                            <img class="img-fluid" src="~/Asset/img/@RelatedPro.ProductImage" alt="Colorlib Template">
+                            @*<span class="status">30%</span>*@
+                            <div class="overlay"></div>
+                        </a>
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <h3><a href="/Product/SingleProduct/@RelatedPro.ProductID">@RelatedPro.ProductName</a></h3>
+                            <div class="d-flex">
+                                <div class="pricing">
+                                    <p class="price"><span class="mr-2 price-dc">@RelatedPro.PriceOld</span><span class="price-sale">@RelatedPro.Price</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+
+                                    <a href="javascript:void(0)" class="buy-now d-flex justify-content-center align-items-center mx-1" onclick="AddToCart(@RelatedPro.ProductID)">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+                                    <a href="javascript:void(0)" class="heart d-flex justify-content-center align-items-center " onclick="AddToFavorite(@RelatedPro.ProductID)">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @*<div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul style="text-align:center">
+                                @Html.PagedListPager(Model, page => Url.Action("ViewProduct", new { page }), new PagedListRenderOptions
+                                    {
+                                             MaximumPageNumbersToDisplay = 5
+
+                                     })
+                            </ul>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</section>
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryunobtrusive")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script>
+
+        function AddToCart(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddtoCart",
+                data: { idProduct: id, quantity: 1 },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+
+        }
+        function AddToFavorite(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddToFavorite",
+                data: { id: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+        }
+    </script>
+
+}

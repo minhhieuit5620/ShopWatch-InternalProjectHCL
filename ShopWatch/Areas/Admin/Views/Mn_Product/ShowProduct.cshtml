@@ -1,0 +1,79 @@
+﻿@model List<ShopWatch.Models.Product>
+@{
+    ViewBag.Title = "ShowProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-8 p-r-0 title-margin-right">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Manager Product</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /# column -->
+    <div class="col-lg-4 p-l-0 title-margin-left">
+        <div class="page-header">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="active">Home</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /# column -->
+</div>
+
+<div class="col-lg-12">
+    <div class="card alert">
+        <div class="card-header">
+            <button class="btn btn-primary"> Add product</button>           
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name Product</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th style="text-align: center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <th scope="row"># </th>
+                                <td>@item.ProductName</td>
+                                <td><img style="border-radius:0px; height:50px;width:auto;" src="~/Asset/img/@item.ProductImage" /></td>
+
+                                <td>@item.Amount</td>
+                                <td class="color-danger">@item.Price</td>
+                                <td>
+                                    <button type="button" class="btn btn-default">
+                                       <a href="/Admin/Mn_Product/Detail/@item.ProductID" style="text-decoration:none;">Detail</a>
+                                    </button>
+                                   
+                                    <a href="/Admin/Mn_Product/Edit/@item.ProductID" class="btn btn-info" style="text-decoration:none;">Edit</a>
+                                    <button class="btn btn-danger">Delete</button>
+
+                                    @*<span class="badge badge-primary">Sale</span>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+

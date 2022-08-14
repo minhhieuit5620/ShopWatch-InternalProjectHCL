@@ -1,0 +1,331 @@
+﻿@model List<ShopWatch.Models.Product>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@Html.Raw(ViewBag.check)
+
+
+
+
+<style>
+    .showtest {
+        border: 1px solid black;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+
+<section id="home-section" class="hero">
+    <div class="home-slider owl-carousel">
+        <div class="slider-item" style="background-image: url(../../Asset/banner/Rolex.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+                    <div class="col-md-12 ftco-animate text-center">
+                        <h1 class="mb-2">The best watches &amp; Accessories</h1>
+                        <h2 class="subheading mb-4">Say no to fake  &amp;  poor quality goods</h2>
+                        <p><a href="#" class="btn btn-primary">View Details</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-item" style="background-image: url(../../Asset/banner/26a6bf5b167a360f2ef0dbed1f3773c0.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+                    <div class="col-sm-12 ftco-animate text-center">
+                        <h1 class="mb-2">100% Genuine &amp;Many offers</h1>
+                        <h2 class="subheading mb-4"> 5 years warranty &amp; many attractive offers and gifts</h2>
+                        <p><a href="#" class="btn btn-primary">View Details</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section ftco-category ftco-no-pt" style="padding:0px;">
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row justify-content-center mb-3 pb-3">
+                    <div class="col-md-12 heading-section text-center ftco-animate">
+                        @*<span class="subheading">New Products</span>*@
+                        <h2 class="mb-4" style="padding-top:50px">Famous Brands</h2>
+
+                    </div>
+                </div>
+            </div>
+
+            <div style="max-height:0px;">
+
+            </div>
+
+          
+            @foreach (var i in ViewBag.listCate)
+            {
+              
+                <div class="col-md-4 showtest "  >
+                    <a href="/Product/ManufacturerProduct/@i.Manufacturer_id">
+                       @* <div class="category-wrap ftco-animate img mb-4 d-flex align-items-end">*@
+                             <div  class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(../../Asset/img/brand/@i.Image);">
+                           @*<img src="../../Asset/img/brand/@i.Image" class="img d-flex align-items-end" style=""/>*@
+
+                            <div class="text px-3 py-1">
+                                <h2 class="mb-0 " >
+                                    @i.Name
+                                </h2>
+                            </div>
+                        </div>
+                    </a>
+
+                    @*<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(../../Asset/img/brand/@i.Image);">
+                            <div class="text px-3 py-1">
+                                <h2 class="mb-0"><a href="#">Dried</a></h2>
+                            </div>
+                        </div>*@
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+@*<div class="row justify-content-center mb-3 pb-3">
+    <div class="col-md-12 heading-section text-center ftco-animate" style="margin-top:50px">
+
+        <div class="quantity input-group col-md-8 d-flex mb-8">
+            <button type="button" onclick="check()" class="btn btn-default add-to-cart" style="border-radius: 20px; background-color: #82ae46; margin-left: 300px">
+                Check
+            </button>
+            <input type="text" size="4" id="url" style="margin-left: 30px; width: 208px;" class="input-text qty text" title="url" name="url">
+
+        </div>
+       
+
+    </div>
+</div>*@
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">New Products</span>
+                <h2 class="mb-4">Our Products</h2>
+            </div>
+        </div>
+    </div>
+    <div>
+
+
+        <form action="@Url.Action("Emb", "Home", new { url = Url.RequestContext.RouteData.Values["url"] })" method="get" class="cart">
+
+
+               <div class="quantity input-group col-md-6 d-flex mb-3">
+                   <input type="text" size="4" id="url" class="input-text qty text" title="url" name="url" style="width: 70px;text-align: center;">
+               </div>
+
+               <button type="submit" class="btn btn-default add-to-cart" style="border-radius: 20px; background-color: #82ae46 ">
+                   Check
+
+               </button>
+
+
+            </form>
+    </div>
+    <div class="container">
+        <div class="row">
+            @{
+                var j = -1;
+            }
+            @foreach (var item in Model)
+            {
+                j++;
+                <div class="col-md-6 col-lg-3 ftco-animate" id="clone+@j">
+                    <div class="product" >
+                        <div  id="cloneImg+@j" >
+                            <a href="/Product/SingleProduct/@item.ProductID" class="img-prod">
+                                <img class="img-fluid"  style="max-width: 100%; height: auto;" src="~/Asset/img/@item.ProductImage" alt="Colorlib Template">
+                                @*<span class="status">30%</span>*@
+                                <div class="overlay"></div>
+                            </a>
+                        </div>
+                       
+                        <div class="text py-3 pb-4 px-3 text-center">
+                            <div style="height:60px;" >
+                                <h3 ><a id="cloneName+@j" href="/Product/SingleProduct/@item.ProductID">@item.ProductName</a></h3>
+                            </div>
+                            <div class="d-flex">
+                                <div class="pricing" id="clonePrice+@j">
+                                    <p class="price"><span class="mr-2 price-dc">  @string.Format("${0:#,##0}", item.PriceOld)</span><span class="price-sale"> @string.Format("${0:#,##0}", item.Price)</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-area d-flex px-3">
+                                <div class="m-auto d-flex">
+
+                                    <a href="javascript:void(0)" class="toa buy-now d-flex justify-content-center align-items-center mx-1" style="cursor:pointer" id="toa" onclick="AddToCartCookie(@item.ProductID)">
+                                        <span><i class="ion-ios-cart"></i></span>
+                                    </a>
+
+                                    <a href="javascript:void(0)" class="heart d-flex justify-content-center align-items-center " onclick="AddToFavorite(@item.ProductID)">
+                                        <span><i class="ion-ios-heart"></i></span>
+                                    </a>
+
+                                    @*<div  class="btn btn-info" id="toaa">toia</div>*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section ftco-partner" style="padding:0px;">
+    <div class="container">
+        <div class="row">
+            @foreach (var a in ViewBag.listCate)
+            {
+                <div class="col-sm ftco-animate">
+                    <a href="/Product/ManufacturerProduct/@a.Manufacturer_id" class="partner"><img src="../../Asset/img/brand/@a.Image_brand" class="img-fluid" alt="Colorlib Template"></a>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+
+
+@section Scripts{
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+
+    @*<script src="~/Scripts/jquery-2.0.3.js" type="text/javascript"></script>
+        <script src="~/Scripts/jquery_cookie.js" type="text/javascript"></script>*@
+
+
+    <script>
+
+        function AddToCart(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddtoCart",
+                data: { idProduct: id, quantity: 1 },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+        }
+        function AddToFavorite(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddToFavorite",
+                data: { id: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+        }
+        function AddToCartCookie(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddCartCookie",
+                data: { id: id, quantity: 1 },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    //window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+        }
+        var url = document.getElementById("url").value;
+        console.log(url);
+        function check() {
+            console.log(document.getElementById("url").value);
+            $.ajax({
+                type: "POST",
+                url: "/Home/Emb",
+                data: { url: document.getElementById("url").value },
+                contentType: "application/x-www-form-urlencoded",
+                dataType: "text",
+                success: function (data) {
+
+                    console.log(data);
+                    console.log("------------------------------------------------------");
+
+                    var regexConst = /product-item/gm;
+                    var result = data.match(regexConst);
+
+
+                    var title = /product-title a/gm;
+                    var result_title = data.match(title);
+                    var img = /product-img/gm;
+                    var result_img = data.match(img);
+                    var price = /product-price/gm;
+                    var result_price = data.match(price);
+                    console.log(result_title);
+                    console.log(result_img);
+                    console.log(result_price);
+
+
+                    console.log("ahaah", result);                 
+                   // console.log(data)
+                    for (var i = 0; i <8; i++) {
+                        document.getElementById("cloneName+" + i).innerHTML = data;                                              
+                        document.getElementById("cloneImg+" + i).innerHTML = document.getElementsByClassName(result_img[i])[i].innerHTML;
+                        document.getElementById("clonePrice+" + i).innerHTML = document.getElementsByClassName(result_price[i])[i].innerHTML;
+                        document.getElementById("cloneName+" + i).innerHTML = document.getElementsByClassName(result_title[i])[i].innerHTML;
+                    }
+                }, error: function (response) {
+                    console.log("fail");
+                   // window.location.reload();
+                }
+            });
+        }
+        $(function () {
+
+            toastr.options = {
+                "closeButton": true
+
+            };
+
+            $(".toa").click(function () {
+                console.log("clicked");
+                toastr.success("Product added shopping cart", "Shopping cart", { tapToDismiss: true });
+
+            });
+        });
+    </script>
+
+}

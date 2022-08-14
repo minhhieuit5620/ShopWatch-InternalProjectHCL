@@ -1,0 +1,162 @@
+﻿@model List<ShopWatch.Models.Favorite>
+@{
+    ViewBag.Title = "Favorite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Session["User"] != null)
+{
+    <div class="hero-wrap hero-bread" style="background-image: url('../../Asset/Cart/Limit__Goldbar_Banner_1224x550px.jpg'); ">
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/" style="color:black">Home</a></span> <span style="color:black">Favorite</span></p>
+                    <h1 class="mb-0 bread" style="color:black">My list favorite</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="ftco-section ftco-cart">
+        <div class="container">
+            @if (Model == null || Model.Count == 0)
+            {
+                <p style="border :1px solid; color:red; display:table;padding:15px;">Empty Favorite</p>
+                <img style="margin-left:400px;" src="~/Asset/Cart/mascot@2x.png" />
+                <div class="clear"></div>
+                <a href="/Product/ViewProduct"><input type="button" class="btn btn-primary" value="◄ Back To Shop"></a>
+                <a href="/Checkout/getorder/"><input type="button" class="btn btn-primary" value="My Order"></a>
+            }
+            else
+            {
+                <div>
+
+                    <div class="row">
+                        <div class="col-md-12 ftco-animate">
+                            <div class="cart-list">
+
+
+                                <table class="table">
+                                    <thead class="thead-primary">
+                                        <tr class="text-center">
+
+                                            <th>Image</th>
+                                            <th>Product name</th>
+                                            <th>Price</th>
+                                            <th>Manufacturer</th>
+                                            <th>Category</th>
+                                            <th>&nbsp;</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="text-center">
+
+
+                                                <td class="image-prod">
+                                                    <a href="/Product/SingleProduct/@item.Product_Id">
+                                                        <div class="img" style="background-image:url(../../Asset/img/@item.ProductImage);"></div>
+                                                    </a>
+                                                </td>
+
+                                                <td class="product-name">
+                                                    <a href="/Product/SingleProduct/@item.ProductImage">
+                                                        <h3>@item.NameProduct</h3>
+                                                    </a>
+                                                </td>
+                                                <td class="price">@string.Format("${0:#,##0}", item.Price)</td>
+                                                <td class="total">@item.Manufacturer_id</td>
+                                                <td class="total">@item.Category_id</td>
+                                                <td class="total">
+                                                    <a href="javascript:void(0)" class="toa btn btn-info btn-sm d-flex justify-content-center align-items-center mx-1" style="cursor:pointer" onclick="AddToCartCookie(@item.Product_Id)">
+                                                        Add to cart
+                                                    </a>
+                                                </td>
+                                                <td class="product-remove"><a href="@Url.Action("DeleteFavorite","Cart",new { id = item.Favorite_Id})" onclick="return confirm('Are you sure you want to delete this product?');"><span class="ion-ios-close"></span></a></td>
+                                            </tr><!-- END TR-->
+
+                                        }
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                        <a href="/Product/ViewProduct"><input type="button" class="btn btn-primary" value="◄ Back Shopping"></a>
+                        <a href="/Checkout/getorder"><input type="button" class="btn btn-primary" value="My Order"></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+}
+else
+{
+
+    <div style="width:100%;text-align:center;">
+        <h2> Oops!You need Login to continue</h2>
+        <a href="/Home/Login"><input class="btn btn-primary" value="Back to Login" /></a>
+    </div>
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryunobtrusive")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script>
+
+        function AddToCart(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddtoCart",
+                data: { idProduct: id, quantity: 1 },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    //window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+        }
+        function AddToCartCookie(id) {
+            $.ajax({
+                type: "GET",
+                url: "/Cart/AddCartCookie",
+                data: { id: id, quantity: 1 },
+                contentType: "application/json; charset=utf-8",
+                dataType: "text",
+                success: function () {
+                    console.log("Success");
+                    //window.location.reload();
+                }, error: function () {
+                    console.log("error");
+                }
+                //function (response) { window.location.reload(); }
+            });
+        }
+        $(function () {
+
+            toastr.options = {
+                "closeButton": true
+
+            };
+
+            $(".toa").click(function () {
+                // console.log("clicked");
+                toastr.success("Product added shopping cart", "Shopping cart", { tapToDismiss: true });
+
+            });
+        });
+
+    </script>
+
+}
+
+

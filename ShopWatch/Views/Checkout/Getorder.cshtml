@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ShopWatch.Models.Order>
+@{
+    ViewBag.Title = "Getorder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 ftco-animate">
+            <div class="cart-list">
+                @if (Session["User"] != null)
+                {
+
+
+                    <table class="table table-hover">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+
+                                <th>#</th>
+                                <th>Name Customer</th>
+                                <th>Order date</th>
+                                <th>Quantity</th>
+                                <th>Payment method</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @{
+                                var Subtotal = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                            <tr class="text-center" style="height:100px;">
+                                <td class="product-name">
+                                    <a href="/Checkout/GetOrderDetail/@item.OrderID">
+                                        <h3>@item.OrderID</h3>
+                                    </a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="/Checkout/GetOrderDetail/@item.OrderID">
+                                        <h3>@item.OrderName</h3>
+                                    </a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="/Checkout/GetOrderDetail/@item.OrderID">
+                                        <h3>@item.OrderDate</h3>
+                                    </a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="/Checkout/GetOrderDetail/@item.OrderID">
+                                        <h3>@item.Status</h3>
+                                    </a>
+                                </td>
+                                <td class="product-name">
+                                    <a href="/Checkout/GetOrderDetail/@item.OrderID">
+                                        <h3>@item.Payment_method</h3>
+                                    </a>
+                                </td>
+                            </tr><!-- END TR-->
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div style="width:100%;text-align:center;">
+                        <h2> Oops!You need Login to continue</h2>
+                        <a href="/Home/Login"><input class="btn btn-primary" value="Back to Login" /></a>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
